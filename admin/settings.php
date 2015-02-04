@@ -1,175 +1,121 @@
-<h1><?php _e('Settings Page', self::$text_domain1); ?></h1>
-<form method="post">
+<div id="<?php echo self::$prefix; ?>content">
 
-	<h3><?php _e('General Section', self::$text_domain1); ?></h3>
+	<h1><?php _e('Settings Page', self::$text_domain); ?></h1>
 
-	<table class="form-table" enctype="multipart/form-data">
-		<tbody>
-			<!--Show Featured Image -->
+	<form method="post" class="form-horizontal" role="form">
 
-			<tr>
-				<th>
-					<label><?php _e('Show Featured Image', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_image" name="<?php echo self::$prefix1; ?>check_image" <?php echo isset($settings['check_image']) && $settings['check_image'] ? 'checked="checked"' : ''; ?>/>
-					</td>
-				</th>
-			</tr>
-			<!-- Restrict Users To See Only Their Post -->
+		<!-- Add a BootStrap Panel for the settings -->
 
-			<tr>
-				<th>
-					<label><?php _e('Restrict Users To See Only Their Post', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_post" name="<?php echo self::$prefix1; ?>check_post" <?php echo isset($settings['check_post']) && $settings['check_post'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!-- Login Error -->
-			<tr>
-				<th>
-					<label><?php _e('Hide Login Errors', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>login_error" name="<?php echo self::$prefix1; ?>login_error" <?php echo isset($settings['login_error']) && $settings['login_error'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!-- Display Updates Message To Only Admin -->
-			<tr>
-				<th>
-					<label><?php _e('Display Updates Message To Only Admin', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_update" name="<?php echo self::$prefix1; ?>check_update" <?php echo isset($settings['check_update']) && $settings['check_update'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!-- Allow Contributors To Upload Media File -->
-			<tr>
-				<th>
-					<label><?php _e('Allow Contributors To Upload Media File', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_upload_file" name="<?php echo self::$prefix1; ?>check_upload_file" <?php echo isset($settings['check_upload_file']) && $settings['check_upload_file'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Default Image Quality -->
-			<tr>
-				<th>
-					<label><?php _e('Make Default Image Quality 100%', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_image_quality" name="<?php echo self::$prefix1; ?>check_image_quality" <?php echo isset($settings['check_image_quality']) && $settings['check_image_quality'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Disable Self-Pinging -->
-			<tr>
-				<th>
-					<label><?php _e('Disable Self-Pinging', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_Self-Pinging" name="<?php echo self::$prefix1; ?>check_Self-Pinging" <?php echo isset($settings['check_Self-Pinging']) && $settings['check_Self-Pinging'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Disable Header Meta -->
-			<tr>
-				<th>
-					<label><?php _e('Disable Header Meta', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_meta" name="<?php echo self::$prefix1; ?>check_meta" <?php echo isset($settings['check_meta']) && $settings['check_meta'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Hide Widgets And Menu From Appearance -->
-			<tr>
-				<th>
-					<label><?php _e('Hide Widgets And Menu From Appearance', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_widgets" name="<?php echo self::$prefix1; ?>check_widgets" <?php echo isset($settings['check_widgets']) && $settings['check_widgets'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Remove All Meta Box -->
-			<tr>
-				<th>
-					<label><?php _e('Remove All Meta Box', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_remove_metabox" name="<?php echo self::$prefix1; ?>check_remove_metabox" <?php echo isset($settings['check_remove_metabox']) && $settings['check_remove_metabox'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Redirect author link to another Page -->
-			<tr>
-				<th>
-					<label><?php _e('Redirect author link to another Page', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_author_link" name="<?php echo self::$prefix1; ?>check_author_link" <?php echo isset($settings['check_author_link']) && $settings['check_author_link'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Disable post revisions to prevent database size overload -->
-			<tr>
-				<th>
-					<label><?php _e('Disable post revisions', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_post_revision" name="<?php echo self::$prefix1; ?>check_post_revision" <?php echo isset($settings['check_post_revision']) && $settings['check_post_revision'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Open External Post Links in New Windows -->
-			<tr>
-				<th>
-					<label><?php _e('Open External Post Links in New Windows', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_link" name="<?php echo self::$prefix1; ?>check_link" <?php echo isset($settings['check_link']) && $settings['check_link'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Display Message If Username is Admin -->
-			<tr>
-				<th>
-					<label><?php _e('Display Message If Username is Admin', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_admin" name="<?php echo self::$prefix1; ?>check_admin" <?php echo isset($settings['check_admin']) && $settings['check_admin'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Disable Auto Updates from Wordpress -->
-			<tr>
-				<th>
-					<label><?php _e('Disable Auto Updates from Wordpress', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_auto_update" name="<?php echo self::$prefix1; ?>check_auto_update" <?php echo isset($settings['check_auto_update']) && $settings['check_auto_update'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-			<!--Add featured image to RSS feeds -->
-			<tr>
-				<th>
-					<label><?php _e('Add featured image to RSS feeds', self::$text_domain1); ?></label>
-					<td>
-						<input type="checkbox" id="<?php echo self::$prefix1; ?>check_rss" name="<?php echo self::$prefix1; ?>check_rss" <?php echo isset($settings['check_rss']) && $settings['check_rss'] ? 'checked="checked"' : ''; ?>/>
-						
-					</td>
-				</th>
-			</tr>
-</tbody>
-</table>
-<?php wp_nonce_field(self::$prefix1 . 'admin_settings'); ?>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><?php _e('General Section', self::$text_domain); ?></h3>
+			</div>
+			<div class="panel-body">
 
-<?php submit_button( ) ?>
+				<!-- Text -->
 
-</form>
+				<div class="form-group">
+					<label for="<?php echo self::$prefix; ?>text" class="col-sm-3 control-label"><?php _e('Text', self::$text_domain); ?></label>
+					<div class="col-sm-9">
+						<input id="<?php echo self::$prefix; ?>text" name="<?php echo self::$prefix; ?>text" class="form-control" type="text" value="<?php echo isset($settings['text']) ? esc_attr($settings['text']) : ''; ?>">
+						<em class="help-block"><?php _e('This is a description.', self::$text_domain); ?></em>
+					</div>
+				</div>
+
+				<!-- Text Area -->
+
+				<div class="form-group">
+					<label for="<?php echo self::$prefix; ?>textarea" class="col-sm-3 control-label"><?php _e('Text Area', self::$text_domain); ?></label>
+					<div class="col-sm-9">
+						<textarea rows="10" cols="50" id="<?php echo self::$prefix; ?>textarea" name="<?php echo self::$prefix; ?>textarea" class="form-control"><?php echo isset($settings['textarea']) ? esc_attr($settings['textarea']) : ''; ?></textarea>
+						<em class="help-block"><?php _e('This is a description.', self::$text_domain); ?></em>
+					</div>
+				</div>
+
+				<!-- Checkbox -->
+
+				<div class="form-group">
+					<label for="<?php echo self::$prefix; ?>checkbox" class="col-sm-3 control-label"><?php _e('Checkbox', self::$text_domain); ?></label>
+					<div class="col-sm-9">
+						<input type="checkbox" id="<?php echo self::$prefix; ?>checkbox" name="<?php echo self::$prefix; ?>checkbox" class="form-control" <?php echo isset($settings['checkbox']) && $settings['checkbox'] ? 'checked="checked"' : ''; ?>/>
+						<em class="help-block"><?php _e('This is a description.', self::$text_domain); ?></em>
+					</div>
+				</div>
+
+				<!-- Select -->
+
+				<div class="form-group">
+					<label for="<?php echo self::$prefix; ?>select" class="col-sm-3 control-label"><?php _e('Select', self::$text_domain); ?></label>
+					<div class="col-sm-9">
+						<select id="<?php echo self::$prefix; ?>select" name="<?php echo self::$prefix; ?>select">
+							<option value="small" <?php echo isset($settings['select']) && $settings['select'] == 'small' ? 'selected' : ''; ?>><?php _e('small', self::$text_domain); ?></option>
+							<option value="medium" <?php echo isset($settings['select']) && $settings['select'] == 'medium' ? 'selected' : ''; ?>><?php _e('medium', self::$text_domain); ?></option>
+							<option value="large" <?php echo isset($settings['select']) && $settings['select'] == 'large' ? 'selected' : ''; ?>><?php _e('large', self::$text_domain); ?></option>
+						</select>
+						<em class="help-block"><?php _e('This is a description.', self::$text_domain); ?></em>
+					</div>
+				</div>
+
+				<!-- Radio -->
+
+				<div class="form-group">
+					<label for="<?php echo self::$prefix; ?>radio" class="col-sm-3 control-label"><?php _e('Radio', self::$text_domain); ?></label>
+					<div class="col-sm-9">
+
+						<div class="radio">
+							<label>
+								<input type="radio" name="<?php echo self::$prefix; ?>radio" class="form-control" value="start" <?php echo isset($settings['radio']) && $settings['radio'] == 'start' ? 'checked="checked"' : ''; ?>>
+								<?php _e('start', self::$text_domain); ?>
+							</label>
+						</div>
+
+						<div class="radio">
+							<label>
+								<input type="radio" name="<?php echo self::$prefix; ?>radio" class="form-control" value="middle" <?php echo isset($settings['radio']) && $settings['radio'] == 'middle' ? 'checked="checked"' : ''; ?>>
+								<?php _e('middle', self::$text_domain); ?>
+							</label>
+						</div>
+
+						<div class="radio">
+							<label>
+								<input type="radio" name="<?php echo self::$prefix; ?>radio" class="form-control" value="end" <?php echo isset($settings['radio']) && $settings['radio'] == 'end' ? 'checked="checked"' : ''; ?>>
+								<?php _e('end', self::$text_domain); ?>
+							</label>
+						</div>
+
+						<em class="help-block"><?php _e('This is a description.', self::$text_domain); ?></em>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Add a BootStrap Panel for the settings -->
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><?php _e('Other Section', self::$text_domain); ?></h3>
+			</div>
+			<div class="panel-body">
+
+				<!-- URL -->
+
+				<div class="form-group">
+					<label for="<?php echo self::$prefix; ?>url" class="col-sm-3 control-label"><?php _e('URL', self::$text_domain); ?></label>
+					<div class="col-sm-9">
+						<input id="<?php echo self::$prefix; ?>url" name="<?php echo self::$prefix; ?>url" class="form-control" type="url" size="50" value="<?php echo isset($settings['url']) ? esc_url($settings['url']) : ''; ?>">
+						<em class="help-block"><?php _e('This is a description.', self::$text_domain); ?></em>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<?php wp_nonce_field(self::$prefix . 'admin_settings'); ?>
+
+		<p class="submit">
+			<input type="submit" name="submit" id="submit" class="btn btn-primary" value="<?php _e('Save', self::$text_domain); ?>">
+		</p>
+
+	</form>
+</div>
