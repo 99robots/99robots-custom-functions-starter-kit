@@ -133,12 +133,27 @@ class Custom_Functions {
 	 * @static
 	 */
 	private static $default = array(
-		'text'		=> 'text',
-		'textarea'	=> 'textarea',
-		'checkbox'	=> true,
-		'select'	=> 'medium',
-		'radio'		=> 'start',
-		'url'		=> 'kylebenkapps.com'
+		'checkbox-1'	=> true,
+		'checkbox-2'	=> true,
+		'checkbox-3'	=> true,
+		'checkbox-4'	=> true,
+		'checkbox-5'	=> true,
+		'checkbox-6'	=> true,
+		'checkbox-7'	=> true,
+		'checkbox-8'	=> true,
+		'checkbox-9'	=> true,
+		'checkbox-10'	=> true,
+		'checkbox-11'	=> true,
+		'checkbox-12'	=> true,
+		'checkbox-13'	=> true,
+		'checkbox-14'	=> true,
+		'checkbox-15'	=> true,
+		'checkbox-16'	=> true,
+		'checkbox-17'	=> true,
+		'checkbox-18'	=> true,
+		'checkbox-19'	=> true,
+		'checkbox-20'	=> true,
+		'checkbox-21'	=> true
 	);
 
 	/**
@@ -278,12 +293,27 @@ class Custom_Functions {
 		if (isset($_POST['submit']) && check_admin_referer(self::$prefix . 'admin_settings')) {
 
 			$settings = array(
-				'text'		=> stripcslashes(sanitize_text_field($_POST[self::$prefix . 'text'])),
-				'textarea'	=> stripcslashes(sanitize_text_field($_POST[self::$prefix . 'textarea'])),
-				'checkbox'	=> isset($_POST[self::$prefix . 'checkbox']) && $_POST[self::$prefix . 'checkbox'] ? true : false,
-				'select'	=> $_POST[self::$prefix . 'select'],
-				'radio'		=> $_POST[self::$prefix . 'radio'],
-				'url'		=> stripcslashes(sanitize_text_field($_POST[self::$prefix . 'url']))
+				'checkbox-1'	=> isset($_POST[self::$prefix . 'checkbox-1']) && $_POST[self::$prefix . 'checkbox-1'] ? true : false,
+				'checkbox-2'	=> isset($_POST[self::$prefix . 'checkbox-2']) && $_POST[self::$prefix . 'checkbox-2'] ? true : false,
+				'checkbox-3'	=> isset($_POST[self::$prefix . 'checkbox-3']) && $_POST[self::$prefix . 'checkbox-3'] ? true : false,
+				'checkbox-4'	=> isset($_POST[self::$prefix . 'checkbox-4']) && $_POST[self::$prefix . 'checkbox-4'] ? true : false,
+				'checkbox-5'	=> isset($_POST[self::$prefix . 'checkbox-5']) && $_POST[self::$prefix . 'checkbox-5'] ? true : false,
+				'checkbox-6'	=> isset($_POST[self::$prefix . 'checkbox-6']) && $_POST[self::$prefix . 'checkbox-6'] ? true : false,
+				'checkbox-7'	=> isset($_POST[self::$prefix . 'checkbox-7']) && $_POST[self::$prefix . 'checkbox-7'] ? true : false,
+				'checkbox-8'	=> isset($_POST[self::$prefix . 'checkbox-8']) && $_POST[self::$prefix . 'checkbox-8'] ? true : false,
+				'checkbox-9'	=> isset($_POST[self::$prefix . 'checkbox-9']) && $_POST[self::$prefix . 'checkbox-9'] ? true : false,
+				'checkbox-10'	=> isset($_POST[self::$prefix . 'checkbox-10']) && $_POST[self::$prefix . 'checkbox-10'] ? true : false,
+				'checkbox-11'	=> isset($_POST[self::$prefix . 'checkbox-11']) && $_POST[self::$prefix . 'checkbox-11'] ? true : false,
+				'checkbox-12'	=> isset($_POST[self::$prefix . 'checkbox-12']) && $_POST[self::$prefix . 'checkbox-12'] ? true : false,
+				'checkbox-13'	=> isset($_POST[self::$prefix . 'checkbox-13']) && $_POST[self::$prefix . 'checkbox-13'] ? true : false,
+				'checkbox-14'	=> isset($_POST[self::$prefix . 'checkbox-14']) && $_POST[self::$prefix . 'checkbox-14'] ? true : false,
+				'checkbox-15'	=> isset($_POST[self::$prefix . 'checkbox-15']) && $_POST[self::$prefix . 'checkbox-15'] ? true : false,
+				'checkbox-16'	=> isset($_POST[self::$prefix . 'checkbox-16']) && $_POST[self::$prefix . 'checkbox-16'] ? true : false,
+				'checkbox-17'	=> isset($_POST[self::$prefix . 'checkbox-17']) && $_POST[self::$prefix . 'checkbox-17'] ? true : false,
+				'checkbox-18'	=> isset($_POST[self::$prefix . 'checkbox-18']) && $_POST[self::$prefix . 'checkbox-18'] ? true : false,
+				'checkbox-19'	=> isset($_POST[self::$prefix . 'checkbox-19']) && $_POST[self::$prefix . 'checkbox-19'] ? true : false,
+				'checkbox-20'	=> isset($_POST[self::$prefix . 'checkbox-20']) && $_POST[self::$prefix . 'checkbox-20'] ? true : false,
+				'checkbox-21'	=> isset($_POST[self::$prefix . 'checkbox-21']) && $_POST[self::$prefix . 'checkbox-21'] ? true : false
 			);
 
 			if (function_exists('is_multisite') && is_multisite()) {
