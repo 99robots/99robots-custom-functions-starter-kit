@@ -358,7 +358,7 @@
 								
 								<?php 
 								/* Set $opid and the entire option will change. */
-								$opid = 21; 
+								$opid = 22; 
 								$fullopid = self::$prefix . 'checkbox-' . $opid;	
 								$settopid = 'checkbox-' . $opid;
 								?>

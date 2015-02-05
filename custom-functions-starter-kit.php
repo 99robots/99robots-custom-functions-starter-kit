@@ -47,6 +47,20 @@ register_activation_hook( __FILE__, array('Custom_Functions', 'register_activati
 add_action('init', array('Custom_Functions', 'load_textdomain'));
 add_action('admin_menu', array('Custom_Functions', 'menu_page'));
 add_action('init', array('Custom_Functions', 'do_custom_functions'));
+add_action('admin_notices',array('Custom_Functions','handle_admin_notices'));
+add_action('admin_init',array('Custom_Functions','hide_editors'));
+add_action('admin_head',array('Custom_Functions','hide_core_update'));
+add_action('admin_print_scripts-profile.php', array('Custom_Functions','hide_admin_bar_settings'));
+add_action('init',array('Custom_Functions','disable_admin_bar'));
+//Add the filter for RSS feeds Excerpt
+add_filter('the_excerpt_rss', array('Custom_Functions','featured_image_in_rss'));
+//Add the filter for RSS feed content
+add_filter('the_content_feed',array('Custom_Functions','featured_image_in_rss'));
+//Disable self ping
+add_action( 'pre_ping',array('Custom_Functions','disable_self_ping')  );
+add_action('admin_init',array('Custom_Functions','allow_contributor_uploads') );
+add_filter('pre_get_posts',array('Custom_Functions','posts_for_current_author'));
+
 
 $plugin = plugin_basename(__FILE__);
 add_filter("plugin_action_links_$plugin", array('Custom_Functions', 'plugin_links'));
@@ -154,7 +168,8 @@ class Custom_Functions {
 		'checkbox-18'	=> true,
 		'checkbox-19'	=> true,
 		'checkbox-20'	=> true,
-		'checkbox-21'	=> true
+		'checkbox-21'	=> true,
+		'checkbox-22'	=> true
 	);
 
 	/**
@@ -277,7 +292,8 @@ class Custom_Functions {
 				'checkbox-18'	=> isset($_POST[self::$prefix . 'checkbox-18']) && $_POST[self::$prefix . 'checkbox-18'] ? true : false,
 				'checkbox-19'	=> isset($_POST[self::$prefix . 'checkbox-19']) && $_POST[self::$prefix . 'checkbox-19'] ? true : false,
 				'checkbox-20'	=> isset($_POST[self::$prefix . 'checkbox-20']) && $_POST[self::$prefix . 'checkbox-20'] ? true : false,
-				'checkbox-21'	=> isset($_POST[self::$prefix . 'checkbox-21']) && $_POST[self::$prefix . 'checkbox-21'] ? true : false
+				'checkbox-21'	=> isset($_POST[self::$prefix . 'checkbox-21']) && $_POST[self::$prefix . 'checkbox-21'] ? true : false,
+				'checkbox-22'	=> isset($_POST[self::$prefix . 'checkbox-22']) && $_POST[self::$prefix . 'checkbox-22'] ? true : false
 			);
 
 			update_option(self::$prefix . 'settings', $settings);
@@ -306,18 +322,233 @@ class Custom_Functions {
 		
 		/* Hide WordPress Login Errors */
 		
-		if (isset($settings['checkbox-2']) && $settings['checkbox-2']){
+		if (isset($settings['checkbox-2']) && $settings['checkbox-2']) {
 
 			add_filter('login_errors', create_function('$destroy_login_errors', "return null;"));
 			
 		}
 		
 		
+		/* Enable XHTML for taxonomies */
 		
+		if (isset($settings['checkbox-15']) && $settings['checkbox-15']) {
+		
+			error_log('f');
+
+			remove_filter( 'pre_term_description', 'wp_filter_kses' );
+			
+		}
 		
 
-	}
+		
+		
+		
+		
+		
+		
+		
+		
+	} // end do_custom_functions
+		
+	/**
+	 * Checks $settings and handles admin notices
+	 *
+	 * @since 1.0.0
+	 */
+	static function handle_admin_notices() {  
+
+		/* Check 'Admin' Security Vulnerability */
+		
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-3']) && $settings['checkbox-3'] && is_admin()) {
+			
+			// Get user by login name 'admin'
+			$bloguser = get_user_by('login','admin');
+			
+			// Check if object exists
+			if ($bloguser){
+			
+				// Double-check if object is 'admin'
+				if ($bloguser->user_login === 'admin') {
+				
+					// check if administrator
+					if (current_user_can('manage_options')) {
+					
+						// Display admin notice
+						echo '<div class="error"><p>';
+						_e('WARNING! An administrator is using the "admin" username, which is highly targetted by <a href="https://99robots.com/wordpress-security-checklist/">brute force bot-net attacks</a>. Please create a new administrator user and delete the "admin" username.', self::$text_domain);
+						echo '</p></div>';
+					}
+				}
+			}
+		}
+	} // handle_admin_notices
 	
-}
+	/**
+	 * Checks $settings and hides plugin and theme editors
+	 *
+	 * @since 1.0.0
+	 */
+	static function hide_editors(){
+		
+		/* Hide Theme and Plugin Editors */
+		
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-5']) && $settings['checkbox-5'] && is_admin()) {
+		
+			remove_submenu_page( 'themes.php', 'theme-editor.php' );
+			remove_submenu_page( 'plugins.php', 'plugin-editor.php' );
+			
+		}
+	} // hide_editors
+	
+	
+	/**
+	 * Checks $settings and Hide WP Update notice from non-admins 
+	 *
+	 * @since 1.0.0
+	 */
+	static function hide_core_update(){
+		
+		/* Hide Theme and Plugin Editors */
+		
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-6']) && $settings['checkbox-6'] && is_admin()) {
+		
+			/* remove WordPress update message for everyone except Admin users */
+			
+			if(!current_user_can('update_core')) { 
+		
+				remove_action( 'admin_notices', 'update_nag', 3 );
+			   
+			}
+		}
+	} // hide_core_updates
+	
+	/**
+	 * Checks $settings and Hide WP admin bar settings from non-admins 
+	 *
+	 * @since 1.0.0
+	 */
+	static function hide_admin_bar_settings() {
+	
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-22']) && $settings['checkbox-22'] && !current_user_can('administrator')) {
+		
+			/* remove WordPress admin bar option from all users except admin */ ?>
+			<style type="text/css"> .show-admin-bar { display: none; } </style>
+		<?php }
+	} // hide_admin_bar_settings
+	
+	/**
+	 * Checks $settings and Hide WP admin bar from non-admins 
+	 *
+	 * @since 1.0.0
+	 */
+	static function disable_admin_bar() {
+
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-22']) && $settings['checkbox-22'] && !current_user_can('administrator')) {
+
+			/* remove WordPress admin bar from all users except admin */
+			add_filter( 'show_admin_bar', '__return_false' );
+		}
+	} // disable_admin_bar
+	
+	
+	/**
+	 * Checks $settings and display image in rss feeds
+	 * @since 1.0.0
+	 */
+	static function featured_image_in_rss($content) {
+		
+		// Global $post variable
+		global $post;
+		
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-12']) && $settings['checkbox-12']) {
+
+			// Check if the post has a featured image
+		    if (has_post_thumbnail($post->ID)) {
+		        $content = get_the_post_thumbnail($post->ID, 'large', array('style' => 'margin-bottom:10px;')) . $content;
+		    }
+		    return $content;
+		}
+	} // featured_image_in_rss
+	
+	
+	/**
+	 * Checks $settings and disables self pinging
+	 * @since 1.0.0
+	 */
+	static function disable_self_ping(&$links) {
+		
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-13']) && $settings['checkbox-13']) {
+			error_log('f');
+			
+			//remove pings to self
+			
+		    $home = get_option( 'home' );
+		    
+		    foreach ( $links as $l => $link ) {
+		    
+		        if ( 0 === strpos( $link, $home ) ){
+		        
+		            unset($links[$l]);
+				}
+			}
+		}
+	} // disable_self_ping
+	
+	/**
+	 * Checks $settings and allows contributors to upload images
+	 * @since 1.0.0
+	 */
+	static function allow_contributor_uploads() {
+		
+		$settings = get_option(self::$prefix . 'settings');
+		$contributor = get_role('contributor');
+		if (isset($settings['checkbox-20']) && $settings['checkbox-20']) {
+			
+			$contributor->add_cap('upload_files');
+			
+		} else {
+		
+			$contributor->remove_cap('upload_files');
+			
+		}
+	} // allow_contributor_uploads
+
+	/**
+	 * Checks $settings and prevents authors from seeing other posts
+	 * @since 1.0.0
+	 */
+	static function posts_for_current_author($query) {
+		
+		$settings = get_option(self::$prefix . 'settings');
+		global $pagenow;
+		if (isset($settings['checkbox-21']) && $settings['checkbox-21']) {
+		
+		    if( 'edit.php' != $pagenow || !$query->is_admin ){
+		        return $query;
+		        }
+		    if( !current_user_can( 'manage_options' ) ) {
+		       global $user_ID;
+		       $query->set('author', $user_ID );
+		     }
+		     return $query;			
+		}
+	} // posts_for_current_author
+	
+	
+} // end Custom_Functions
 
 ?>
