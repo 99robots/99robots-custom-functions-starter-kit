@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: WPsite Custom Functions Starter Kit
-plugin URI: http://wpsite.com/custom-functions-starter-kit/
+Plugin Name: 99 Robots Custom Functions Starter Kit
+plugin URI: http://99robots.com/plugins/custom-functions-starter-kit/
 Description: 
 version: 1.0
-Author: Kyle Benk
-Author URI: http://kylebenkapps.com
+Author: 99 Robots
+Author URI: http://99robots.com
 License: GPL2
 */
 
@@ -46,6 +46,7 @@ register_activation_hook( __FILE__, array('Custom_Functions', 'register_activati
 
 add_action('init', array('Custom_Functions', 'load_textdomain'));
 add_action('admin_menu', array('Custom_Functions', 'menu_page'));
+add_action('init', array('Custom_Functions', 'do_custom_functions'));
 
 $plugin = plugin_basename(__FILE__);
 add_filter("plugin_action_links_$plugin", array('Custom_Functions', 'plugin_links'));
@@ -187,7 +188,7 @@ class Custom_Functions {
 	 * @since 1.0.0
 	 */
 	static function plugin_links($links) {
-		$settings_link = '<a href="admin.php?page=' . self::$settings_page . '">Settings</a>';
+		$settings_link = '<a href="tools.php?page=' . self::$settings_page . '">Settings</a>';
 		array_unshift($links, $settings_link);
 		return $links;
 	}
@@ -199,51 +200,18 @@ class Custom_Functions {
 	 */
 	static function menu_page() {
 
-		// Add the menu Page
-
-		add_menu_page(
-			__('Custom Functions', self::$text_domain),				// Page Title
-			__('Custom Functions', self::$text_domain), 				// Menu Name
-	    	'manage_options', 											// Capabilities
-	    	self::$settings_page, 										// slug
-	    	array('Custom_Functions', 'admin_settings')				// Callback function
-	    );
-
-	    // Cast the first sub menu to the top menu
+	    // Cast the first sub menu to the tools menu
 
 	    $settings_page_load = add_submenu_page(
-	    	self::$settings_page, 										// parent slug
-	    	__('Settings', self::$text_domain), 						// Page title
-	    	__('Settings', self::$text_domain), 						// Menu name
+	    	'tools.php', 										// parent slug
+	    	__('Custom Functions', self::$text_domain), 						// Page title
+	    	__('Custom Functions', self::$text_domain), 						// Menu name
 	    	'manage_options', 											// Capabilities
 	    	self::$settings_page, 										// slug
 	    	array('Custom_Functions', 'admin_settings')				// Callback function
 	    );
 	    add_action("admin_print_scripts-$settings_page_load", array('Custom_Functions', 'include_admin_scripts'));
 
-	    // Another sub menu
-
-	    $usage_page_load = add_submenu_page(
-	    	self::$settings_page, 										// parent slug
-	    	__('Usage', self::$text_domain),  							// Page title
-	    	__('Usage', self::$text_domain),  							// Menu name
-	    	'manage_options', 											// Capabilities
-	    	self::$usage_page, 											// slug
-	    	array('Custom_Functions', 'admin_usage')								// Callback function
-	    );
-	    add_action("admin_print_scripts-$usage_page_load", array('Custom_Functions', 'include_admin_scripts'));
-
-	    // Another sub menu
-
-	    $tabs_page_load = add_submenu_page(
-	    	self::$settings_page, 										// parent slug
-	    	__('Tabs', self::$text_domain),  							// Page title
-	    	__('Tabs', self::$text_domain),  							// Menu name
-	    	'manage_options', 											// Capabilities
-	    	self::$tabs_settings_page, 											// slug
-	    	array('Custom_Functions', 'admin_tabs')		// Callback function
-	    );
-	    add_action("admin_print_scripts-$tabs_page_load", array('Custom_Functions', 'include_admin_scripts'));
 	}
 
 	/**
@@ -276,11 +244,7 @@ class Custom_Functions {
 	 */
 	static function admin_settings() {
 
-		if (function_exists('is_multisite') && is_multisite()) {
-			$settings = get_site_option(self::$prefix . 'settings');
-		} else {
-			$settings = get_option(self::$prefix . 'settings');
-		}
+		$settings = get_option(self::$prefix . 'settings');
 
 		// Default values
 
@@ -288,7 +252,7 @@ class Custom_Functions {
 			$settings = self::$default;
 		}
 
-		// Save data nd check nonce
+		// Save data and check nonce
 
 		if (isset($_POST['submit']) && check_admin_referer(self::$prefix . 'admin_settings')) {
 
@@ -316,70 +280,44 @@ class Custom_Functions {
 				'checkbox-21'	=> isset($_POST[self::$prefix . 'checkbox-21']) && $_POST[self::$prefix . 'checkbox-21'] ? true : false
 			);
 
-			if (function_exists('is_multisite') && is_multisite()) {
-				update_site_option(self::$prefix . 'settings', $settings);
-			} else {
-				update_option(self::$prefix . 'settings', $settings);
-			}
+			update_option(self::$prefix . 'settings', $settings);
+
 		}
 
 		require('admin/settings.php');
 	}
-
+	
 	/**
-	 * Displays the HTML for the 'general-admin-menu-usage' admin page
+	 * Checks $settings and enables individual functions
 	 *
 	 * @since 1.0.0
 	 */
-	static function admin_usage() {
-		?>
-		<div id="<?php echo self::$prefix; ?>content">
-			<h1><?php _e('Usage Page', self::$text_domain); ?> <small><?php _e('Information about how to use this plugin.', self::$text_domain); ?></small></h1>
-		</div>
-		<?php
+	public static function do_custom_functions() {
+		
+		$settings = get_option(self::$prefix . 'settings');
+		
+		/* Hide WordPress Version & Meta Data */
+		
+		if (isset($settings['checkbox-1']) && $settings['checkbox-1'] && !is_admin()) {
+		
+			remove_action('wp_head', 'wp_generator');
+			
+		}
+		
+		/* Hide WordPress Login Errors */
+		
+		if (isset($settings['checkbox-2']) && $settings['checkbox-2']){
+
+			add_filter('login_errors', create_function('$destroy_login_errors', "return null;"));
+			
+		}
+		
+		
+		
+		
+
 	}
-
-	/**
-	 * Displays the HTML for the 'general-admin-menu-tab-settings' admin page
-	 *
-	 * @since 1.0.0
-	 */
-	static function admin_tabs() {
-		?>
-
-		<script type="text/javascript">
-			jQuery(document).ready(function($){
-				$('#myTab a').click(function (e) {
-					e.preventDefault();
-					$(this).tab('show');
-				})
-			});
-		</script>
-
-		<div id="<?php echo self::$prefix; ?>content">
-
-			<h1><?php _e('Tabs Page', self::$text_domain); ?></h1>
-
-			<!-- Nav tabs -->
-			<ul id="myTab" class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#<?php echo self::$prefix;?>tab_1" role="tab" data-toggle="tab"><?php _e('Tab 1', self::$text_domain); ?></a></li>
-				<li role="presentation"><a href="#<?php echo self::$prefix;?>tab_2" role="tab" data-toggle="tab"><?php _e('Tab 2', self::$text_domain); ?></a></li>
-			</ul>
-			<br/>
-
-			<!-- Tab panes -->
-			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane active" id="<?php echo self::$prefix;?>tab_1">
-					<p><?php _e('Content of Tab 1', self::$text_domain); ?></p>
-				</div>
-				<div role="tabpanel" class="tab-pane" id="<?php echo self::$prefix;?>tab_2">
-					<p><?php _e('Content of Tab 2', self::$text_domain); ?></p>
-				</div>
-			</div>
-
-		</div>
-		<?php
-	}
+	
 }
 
 ?>
