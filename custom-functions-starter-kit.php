@@ -44,22 +44,45 @@ register_activation_hook( __FILE__, array('Custom_Functions', 'register_activati
  * Hooks / Filter
  */
 
+//Load text domain
 add_action('init', array('Custom_Functions', 'load_textdomain'));
+//Add settings menu
 add_action('admin_menu', array('Custom_Functions', 'menu_page'));
+//Add custom functions
 add_action('init', array('Custom_Functions', 'do_custom_functions'));
+//Add admin notices
 add_action('admin_notices',array('Custom_Functions','handle_admin_notices'));
+//Hide Plugin & Theme editors
 add_action('admin_init',array('Custom_Functions','hide_editors'));
+//Hide Core updates from non-admin
 add_action('admin_head',array('Custom_Functions','hide_core_update'));
+//Hide Admin bar setting from non-admin
 add_action('admin_print_scripts-profile.php', array('Custom_Functions','hide_admin_bar_settings'));
+//Hide Admin bar from non-admin
 add_action('init',array('Custom_Functions','disable_admin_bar'));
-//Add the filter for RSS feeds Excerpt
+//Add featured image to RSS feeds Excerpt
 add_filter('the_excerpt_rss', array('Custom_Functions','featured_image_in_rss'));
-//Add the filter for RSS feed content
+//Add featured image to RSS feed content
 add_filter('the_content_feed',array('Custom_Functions','featured_image_in_rss'));
 //Disable self ping
-add_action( 'pre_ping',array('Custom_Functions','disable_self_ping')  );
-add_action('admin_init',array('Custom_Functions','allow_contributor_uploads') );
+add_action( 'pre_ping',array('Custom_Functions','disable_self_ping'));
+//Allow contributor to upload photos
+add_action('admin_init',array('Custom_Functions','allow_contributor_uploads'));
+//Prevent authoir from viewing other authors posts
 add_filter('pre_get_posts',array('Custom_Functions','posts_for_current_author'));
+//Disable post revisions
+add_filter('wp_revisions_to_keep',array('Custom_Functions','disable_post_revisions'),10,2);
+//Externalize links
+//add_filter('the_content', array('Custom_Functions','externalize_links'));
+// Add Thumbnails in Manage Posts/Pages List
+if (is_admin()) {
+	// for posts
+    add_filter( 'manage_posts_columns',array('Custom_Functions','AddThumbColumn'));
+    add_action( 'manage_posts_custom_column',array('Custom_Functions','AddThumbValue'),10,2);
+    // for pages
+    add_filter( 'manage_pages_columns',array('Custom_Functions','AddThumbColumn'));
+    add_action( 'manage_pages_custom_column',array('Custom_Functions','AddThumbValue'),10,2);
+}
 
 
 $plugin = plugin_basename(__FILE__);
@@ -148,28 +171,28 @@ class Custom_Functions {
 	 * @static
 	 */
 	private static $default = array(
-		'checkbox-1'	=> true,
-		'checkbox-2'	=> true,
-		'checkbox-3'	=> true,
-		'checkbox-4'	=> true,
-		'checkbox-5'	=> true,
-		'checkbox-6'	=> true,
-		'checkbox-7'	=> true,
-		'checkbox-8'	=> true,
-		'checkbox-9'	=> true,
-		'checkbox-10'	=> true,
-		'checkbox-11'	=> true,
-		'checkbox-12'	=> true,
-		'checkbox-13'	=> true,
-		'checkbox-14'	=> true,
-		'checkbox-15'	=> true,
-		'checkbox-16'	=> true,
-		'checkbox-17'	=> true,
-		'checkbox-18'	=> true,
-		'checkbox-19'	=> true,
-		'checkbox-20'	=> true,
-		'checkbox-21'	=> true,
-		'checkbox-22'	=> true
+		'checkbox-1'	=> false,
+		'checkbox-2'	=> false,
+		'checkbox-3'	=> false,
+		'checkbox-4'	=> false,
+		'checkbox-5'	=> false,
+		'checkbox-6'	=> false,
+		'checkbox-7'	=> false,
+		'checkbox-8'	=> false,
+		'checkbox-9'	=> false,
+		'checkbox-10'	=> false,
+		'checkbox-11'	=> false,
+		'checkbox-12'	=> false,
+		'checkbox-13'	=> false,
+		'checkbox-14'	=> false,
+		'checkbox-15'	=> false,
+		'checkbox-16'	=> false,
+		'checkbox-17'	=> false,
+		'checkbox-18'	=> false,
+		'checkbox-19'	=> false,
+		'checkbox-20'	=> false,
+		'checkbox-21'	=> false,
+		'checkbox-22'	=> false
 	);
 
 	/**
@@ -329,17 +352,19 @@ class Custom_Functions {
 		}
 		
 		
-		/* Enable XHTML for taxonomies */
+		/* Disable WordPress Automatic Updates */
 		
-		if (isset($settings['checkbox-15']) && $settings['checkbox-15']) {
+		if (isset($settings['checkbox-4']) && $settings['checkbox-4']) {
 		
-			error_log('f');
-
-			remove_filter( 'pre_term_description', 'wp_filter_kses' );
+			add_filter( 'allow_minor_auto_core_updates', '__return_false' );
 			
+		} else {
+
+			add_filter( 'allow_minor_auto_core_updates', '__return_true' );
 		}
 		
-
+		
+		
 		
 		
 		
@@ -547,6 +572,130 @@ class Custom_Functions {
 		     return $query;			
 		}
 	} // posts_for_current_author
+	
+	/**
+	 * Checks $settings and disables post revisions
+	 * @since 1.0.0
+	 */
+	static function disable_post_revisions($num,$post) {
+		
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-11']) && $settings['checkbox-11']) {
+			//set limit to 1 post
+			$num = 1;
+			return $num;	
+		} else {
+			// reset to unlimited saved posts
+			$num = -1;
+			return $num;
+		}
+	} // posts_for_current_author
+	
+	/**
+	 * Checks $settings and externalizes links
+	 * @since 1.0.0
+	 */
+	static function externalize_links($content) {
+		
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-14']) && $settings['checkbox-14']) {
+		
+			$regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
+			
+			$hostname = parse_url(get_home_url());
+			error_log($hostname['host']);
+			
+			if(preg_match_all("/$regexp/siU", $content, $matches, PREG_SET_ORDER)) {
+				foreach($matches as $match) {
+					error_log($match[0]);//full link
+					error_log($match[1]);//
+					error_log($match[2]);//anchor href
+					error_log($match[3]);//anchor text
+					$parse = parse_url($match[2]);
+					error_log($parse['host']);
+					
+					
+					if (isset($content) && 
+						isset($parse['host']) && 
+						isset($match[2]) && 
+						isset($hostname['host']) && 
+						($hostname['host'] === $parse['host'])
+						){
+						
+						$replace = preg_replace('<a', '<a target="_blank"', $match[0]);
+						error_log($replace);
+						
+					} 
+				}
+			}
+		
+		} // externalize_links
+		
+		return $content;
+	}
+		
+		
+	/**
+	 * Checks $settings and adds thumnail column to admin list
+	 * @since 1.0.0
+	 */
+	
+	static function AddThumbColumn($cols) {
+	
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-10']) && $settings['checkbox-10']) {
+			
+	        $cols['thumbnail'] = __('Thumbnail');
+	
+	        return $cols;
+        
+        } else {return $cols;}
+    }
+    
+    /**
+	 * Checks $settings and adds thumbnails to thumbnail column
+	 * @since 1.0.0
+	 */
+	
+    static function AddThumbValue($column_name, $post_id) {
+
+		$settings = get_option(self::$prefix . 'settings');
+		
+		if (isset($settings['checkbox-10']) && $settings['checkbox-10']) {
+		
+			$width = (int) 60;
+			$height = (int) 60;
+			
+			if ( 'thumbnail' == $column_name ) {
+			    // thumbnail of WP 2.9
+			    $thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
+			    // image from gallery
+			    $attachments = get_children( array('post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
+			    if ($thumbnail_id)
+			        $thumb = wp_get_attachment_image( $thumbnail_id, array($width, $height), true );
+			    elseif ($attachments) {
+			        foreach ( $attachments as $attachment_id => $attachment ) {
+			            $thumb = wp_get_attachment_image( $attachment_id, array($width, $height), true );
+			        }
+			    }
+			        if ( isset($thumb) && $thumb ) {
+			            echo $thumb;
+			        } else {
+			            echo __('None');
+			        }
+			}
+		}
+    }
+	
+	    
+	
+	
+		
+		
+		
 	
 	
 } // end Custom_Functions

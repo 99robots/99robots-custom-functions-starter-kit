@@ -63,7 +63,7 @@
 									</em>
 								</div>
 								
-								<!-- Disable WordPress Automatic Updates -->
+								<!-- Check for "Admin" Security Vulnerability  -->
 								
 								<?php 
 								/* Set $opid and the entire option will change. */
@@ -85,7 +85,7 @@
 									</em>
 								</div>
 								
-								<!-- Check for 'Admin' Security Vulnerability -->
+								<!-- Disable WordPress Automatic Updates -->
 								
 								<?php 
 								/* Set $opid and the entire option will change. */
@@ -204,7 +204,7 @@
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
-										<?php _e('Save room in your database by disabling post revisions.', self::$text_domain); ?>
+										<?php _e('Save room in your database by disabling post revisions except one autosave.', self::$text_domain); ?>
 									</em>
 								</div>
 								
@@ -263,7 +263,8 @@
 								$settopid = 'checkbox-' . $opid;
 								?>
 				
-								<div class="form-group">
+								<!--
+<div class="form-group">
 									<div class="pull-left">
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
@@ -275,28 +276,7 @@
 										<?php _e('Any link on the site that is pointed off the site will open in a new tab.', self::$text_domain); ?>
 									</em>
 								</div>
-								
-								<!-- Enable XHTML in Category and Tag Descriptions -->
-				
-								<?php 
-								/* Set $opid and the entire option will change. */
-								$opid = 15; 
-								$fullopid = self::$prefix . 'checkbox-' . $opid;	
-								$settopid = 'checkbox-' . $opid;
-								?>
-				
-								<div class="form-group">
-									<div class="pull-left">
-										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
-									</div>
-									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Enable XHTML in Category and Tag Descriptions', self::$text_domain); ?>
-									</label>
-									<div class="clearfix"></div>
-									<em class="help-block">
-										<?php _e('Allows XHTML code to be processed in category and tag descriptions. Best for adding links to descriptions.', self::$text_domain); ?>
-									</em>
-								</div>
+-->
 				
 							</div>
 						</div>
