@@ -46,42 +46,59 @@ register_activation_hook( __FILE__, array('Custom_Functions', 'register_activati
 
 //Load text domain
 add_action('init', array('Custom_Functions', 'load_textdomain'));
+
 //Add settings menu
 add_action('admin_menu', array('Custom_Functions', 'menu_page'));
+
 //Add custom functions
 add_action('init', array('Custom_Functions', 'do_custom_functions'));
+
 //Add admin notices
 add_action('admin_notices',array('Custom_Functions','handle_admin_notices'));
+
 //Hide Plugin & Theme editors
 add_action('admin_init',array('Custom_Functions','hide_editors'));
+
 //Hide Core updates from non-admin
 add_action('admin_head',array('Custom_Functions','hide_core_update'));
+
 //Hide Admin bar setting from non-admin
 add_action('admin_print_scripts-profile.php', array('Custom_Functions','hide_admin_bar_settings'));
+
 //Hide Admin bar from non-admin
 add_action('init',array('Custom_Functions','disable_admin_bar'));
+
 //Add featured image to RSS feeds Excerpt
 add_filter('the_excerpt_rss', array('Custom_Functions','featured_image_in_rss'));
+
 //Add featured image to RSS feed content
 add_filter('the_content_feed',array('Custom_Functions','featured_image_in_rss'));
+
 //Disable self ping
 add_action( 'pre_ping',array('Custom_Functions','disable_self_ping'));
+
 //Allow contributor to upload photos
 add_action('admin_init',array('Custom_Functions','allow_contributor_uploads'));
-//Prevent authoir from viewing other authors posts
+
+//Prevent author from viewing other authors posts
 add_filter('pre_get_posts',array('Custom_Functions','posts_for_current_author'));
+
 //Disable post revisions
 add_filter('wp_revisions_to_keep',array('Custom_Functions','disable_post_revisions'),10,2);
+
 //Externalize links
 //add_filter('the_content', array('Custom_Functions','externalize_links'));
+
 // Add Thumbnails in Manage Posts/Pages List
 if (is_admin()) {
+
 	// for posts
-    add_filter( 'manage_posts_columns',array('Custom_Functions','AddThumbColumn'));
-    add_action( 'manage_posts_custom_column',array('Custom_Functions','AddThumbValue'),10,2);
+    add_filter( 'manage_posts_columns',array('Custom_Functions','add_thumb_column'));
+    add_action( 'manage_posts_custom_column',array('Custom_Functions','add_thumb_value'),10,2);
+    
     // for pages
-    add_filter( 'manage_pages_columns',array('Custom_Functions','AddThumbColumn'));
-    add_action( 'manage_pages_custom_column',array('Custom_Functions','AddThumbValue'),10,2);
+    add_filter( 'manage_pages_columns',array('Custom_Functions','add_thumb_column'));
+    add_action( 'manage_pages_custom_column',array('Custom_Functions','add_thumb_value'),10,2);
 }
 
 
@@ -363,16 +380,6 @@ class Custom_Functions {
 			add_filter( 'allow_minor_auto_core_updates', '__return_true' );
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	} // end do_custom_functions
 		
 	/**
@@ -429,7 +436,6 @@ class Custom_Functions {
 		}
 	} // hide_editors
 	
-	
 	/**
 	 * Checks $settings and Hide WP Update notice from non-admins 
 	 *
@@ -462,9 +468,9 @@ class Custom_Functions {
 	
 		$settings = get_option(self::$prefix . 'settings');
 		
-		if (isset($settings['checkbox-22']) && $settings['checkbox-22'] && !current_user_can('administrator')) {
+		/* remove WordPress admin bar option from all users except admin  */
+		if (isset($settings['checkbox-22']) && $settings['checkbox-22'] && !current_user_can('administrator')) {?>
 		
-			/* remove WordPress admin bar option from all users except admin */ ?>
 			<style type="text/css"> .show-admin-bar { display: none; } </style>
 		<?php }
 	} // hide_admin_bar_settings
@@ -484,7 +490,6 @@ class Custom_Functions {
 			add_filter( 'show_admin_bar', '__return_false' );
 		}
 	} // disable_admin_bar
-	
 	
 	/**
 	 * Checks $settings and display image in rss feeds
@@ -506,7 +511,6 @@ class Custom_Functions {
 		    return $content;
 		}
 	} // featured_image_in_rss
-	
 	
 	/**
 	 * Checks $settings and disables self pinging
@@ -560,16 +564,17 @@ class Custom_Functions {
 		
 		$settings = get_option(self::$prefix . 'settings');
 		global $pagenow;
-		if (isset($settings['checkbox-21']) && $settings['checkbox-21']) {
 		
-		    if( 'edit.php' != $pagenow || !$query->is_admin ){
-		        return $query;
-		        }
-		    if( !current_user_can( 'manage_options' ) ) {
+		if (isset($settings['checkbox-21']) && $settings['checkbox-21']) {
+		    
+		    if(!current_user_can('manage_options')) {
+		    
 		       global $user_ID;
 		       $query->set('author', $user_ID );
-		     }
-		     return $query;			
+		       
+		    }
+		    
+		    return $query;			
 		}
 	} // posts_for_current_author
 	
@@ -582,14 +587,19 @@ class Custom_Functions {
 		$settings = get_option(self::$prefix . 'settings');
 		
 		if (isset($settings['checkbox-11']) && $settings['checkbox-11']) {
+		
 			//set limit to 1 post
-			$num = 1;
-			return $num;	
+			$num = 1;	
+			
 		} else {
+		
 			// reset to unlimited saved posts
 			$num = -1;
-			return $num;
+			
 		}
+		
+		return $num;
+		
 	} // posts_for_current_author
 	
 	/**
@@ -642,7 +652,7 @@ class Custom_Functions {
 	 * @since 1.0.0
 	 */
 	
-	static function AddThumbColumn($cols) {
+	static function add_thumb_column($cols) {
 	
 		$settings = get_option(self::$prefix . 'settings');
 		
@@ -650,13 +660,10 @@ class Custom_Functions {
 			
 	        $cols['thumbnail'] = __('Thumbnail');
 	
-	        return $cols;
+        } 
         
-        } else {
+        return $cols;
         
-        	return $cols;
-        
-        }
     }
     
     /**
@@ -664,7 +671,7 @@ class Custom_Functions {
 	 * @since 1.0.0
 	 */
 	
-    static function AddThumbValue($column_name, $post_id) {
+    static function add_thumb_value($column_name, $post_id) {
 
 		$settings = get_option(self::$prefix . 'settings');
 		
@@ -674,8 +681,10 @@ class Custom_Functions {
 			$height = (int) 60;
 			
 			if ( 'thumbnail' == $column_name ) {
+			
 			    // thumbnail of WP 2.9
 			    $thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
+			    
 			    // image from gallery
 			    $attachments = get_children( array('post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
 			    if ($thumbnail_id)
@@ -685,23 +694,14 @@ class Custom_Functions {
 			            $thumb = wp_get_attachment_image( $attachment_id, array($width, $height), true );
 			        }
 			    }
-			        if ( isset($thumb) && $thumb ) {
-			            echo $thumb;
-			        } else {
-			            echo __('None');
-			        }
+		        if ( isset($thumb) && $thumb ) {
+		            echo $thumb;
+		        } else {
+		            _e('None',self::$text_domain);
+		        }
 			}
 		}
     }
-	
-	    
-	
-	
-		
-		
-		
-	
-	
 } // end Custom_Functions
 
 ?>
