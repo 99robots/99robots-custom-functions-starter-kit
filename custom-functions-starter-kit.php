@@ -652,7 +652,11 @@ class Custom_Functions {
 	
 	        return $cols;
         
-        } else {return $cols;}
+        } else {
+        
+        	return $cols;
+        
+        }
     }
     
     /**
