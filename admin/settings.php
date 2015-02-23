@@ -12,6 +12,8 @@
 					<form method="post" class="" role="form">
 				
 						<!-- General WordPress Functions Section -->
+						
+						<?php $codex_page = '&nbsp;-&nbsp;<a href="http://www.wpsite.net/custom-functions-starter-kit">Learn More</a>'; ?>
 				
 						<div class="panel panel-default">
 							<div class="panel-heading">
@@ -33,11 +35,11 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Hide WordPress Version & Meta Data (recommended)', self::$text_domain); ?>
+										<?php _e('Hide WordPress Version & Meta Data (recommended)'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
-										<?php _e('This will prevent hackers from discovering your WP version number and other revealing meta data about WP.', self::$text_domain); ?>
+										<?php _e('This will prevent hackers from discovering your WP version number.', self::$text_domain); ?>
 									</em>
 								</div>
 								
@@ -55,7 +57,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Hide WordPress Login Errors (recommended)', self::$text_domain); ?>
+										<?php _e('Hide WordPress Login Errors (recommended)'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -77,7 +79,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Check for "Admin" Security Vulnerability (recommended)', self::$text_domain); ?>
+										<?php _e('Check for "Admin" Security Vulnerability (recommended)'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -99,7 +101,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Disable WordPress Automatic Updates', self::$text_domain); ?>
+										<?php _e('Disable WordPress Automatic Updates'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -121,7 +123,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Disable Theme and Plugin Editors', self::$text_domain); ?>
+										<?php _e('Disable Theme and Plugin Editors'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -143,7 +145,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Show WordPress Update Notification to Admins Only', self::$text_domain); ?>
+										<?php _e('Show WordPress Update Notification to Admins Only'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -178,7 +180,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Display the Featured Image on the "All Posts" Admin Screen', self::$text_domain); ?>
+										<?php _e('Display the Featured Image on the "All Posts" Admin Screen'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -200,7 +202,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Disable Post Revisions', self::$text_domain); ?>
+										<?php _e('Disable Post Revisions'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -222,7 +224,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Include Featured Image in RSS Feed', self::$text_domain); ?>
+										<?php _e('Include Featured Image in RSS Feed'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -245,7 +247,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Disable Self-Pinging', self::$text_domain); ?>
+										<?php _e('Disable Self-Pinging'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -304,7 +306,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Allow Contributors to Upload Photos', self::$text_domain); ?>
+										<?php _e('Allow Contributors to Upload Photos'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -326,7 +328,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Restrict Authors to View Only Their Own Posts', self::$text_domain); ?>
+										<?php _e('Restrict Authors to View Only Their Own Posts'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">
@@ -348,7 +350,7 @@
 										<input type="checkbox" id="<?php echo $fullopid; ?>" name="<?php echo $fullopid; ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? 'checked="checked"' : ''; ?>/>
 									</div>
 									<label for="<?php echo $fullopid; ?>" class="col-sm-9 pull-left">
-										<?php _e('Hide Admin Bar from Non-Admins', self::$text_domain); ?>
+										<?php _e('Hide Admin Bar from Non-Admins'.$codex_page, self::$text_domain); ?>
 									</label>
 									<div class="clearfix"></div>
 									<em class="help-block">

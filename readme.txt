@@ -18,7 +18,7 @@ The Custom Functions Starter kit by http://wpsite.net offers over a dozen easy t
 Built for ease of use, the plugin features individual functions activated by simple checkboxes on the Tools > Custom Functions page.
 
 = Hide WordPress Version & Meta Data =
-Prevent hackers from discovering your WP version number and other revealing meta data about WP.
+Prevent hackers from discovering your WP version number.
 
 = Hide WordPress Login Errors =
 Prevent users from seeing the default WP login errors, which may lead to hackers guessing registered usernames.
