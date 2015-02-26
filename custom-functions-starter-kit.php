@@ -2,7 +2,7 @@
 /*
 Plugin Name: 99 Robots Custom Functions Starter Kit
 plugin URI: http://99robots.com/plugins/custom-functions-starter-kit/
-Description: 
+Description:
 version: 1.0
 Author: 99 Robots
 Author URI: http://99robots.com
@@ -95,7 +95,7 @@ if (is_admin()) {
 	// for posts
     add_filter( 'manage_posts_columns',array('Custom_Functions','add_thumb_column'));
     add_action( 'manage_posts_custom_column',array('Custom_Functions','add_thumb_value'),10,2);
-    
+
     // for pages
     add_filter( 'manage_pages_columns',array('Custom_Functions','add_thumb_column'));
     add_action( 'manage_pages_custom_column',array('Custom_Functions','add_thumb_value'),10,2);
@@ -280,11 +280,15 @@ class Custom_Functions {
 
 		wp_register_style(self::$prefix . 'settings_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/css/settings.css');
 		wp_enqueue_style(self::$prefix . 'settings_css');
+		wp_register_style(self::$prefix . 'mailchimp_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/css/mailchimp.css');
+		wp_enqueue_style(self::$prefix . 'settings_css');
 
 		// Javascript
 
 		wp_register_script(self::$prefix . 'settings_js', CUSTOM_FUNCTIONS_PLUGIN_URL . '/js/settings.js');
 		wp_enqueue_script(self::$prefix . 'settings_js');
+		wp_register_script(self::$prefix . 'mailchimp_js', CUSTOM_FUNCTIONS_PLUGIN_URL . '/js/mailchimp.js');
+		wp_enqueue_script(self::$prefix . 'mailchimp_js');
 
 		// BootStrap
 
@@ -342,71 +346,71 @@ class Custom_Functions {
 
 		require('admin/settings.php');
 	}
-	
+
 	/**
 	 * Checks $settings and enables individual functions
 	 *
 	 * @since 1.0.0
 	 */
 	public static function do_custom_functions() {
-		
+
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		/* Hide WordPress Version & Meta Data */
-		
+
 		if (isset($settings['checkbox-1']) && $settings['checkbox-1'] && !is_admin()) {
-		
+
 			remove_action('wp_head', 'wp_generator');
-			
+
 		}
-		
+
 		/* Hide WordPress Login Errors */
-		
+
 		if (isset($settings['checkbox-2']) && $settings['checkbox-2']) {
 
 			add_filter('login_errors', create_function('$destroy_login_errors', "return null;"));
-			
+
 		}
-		
-		
+
+
 		/* Disable WordPress Automatic Updates */
-		
+
 		if (isset($settings['checkbox-4']) && $settings['checkbox-4']) {
-		
+
 			add_filter( 'allow_minor_auto_core_updates', '__return_false' );
-			
+
 		} else {
 
 			add_filter( 'allow_minor_auto_core_updates', '__return_true' );
 		}
-		
+
 	} // end do_custom_functions
-		
+
 	/**
 	 * Checks $settings and handles admin notices
 	 *
 	 * @since 1.0.0
 	 */
-	static function handle_admin_notices() {  
+	static function handle_admin_notices() {
 
 		/* Check 'Admin' Security Vulnerability */
-		
+
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		if (isset($settings['checkbox-3']) && $settings['checkbox-3'] && is_admin()) {
-			
+
 			// Get user by login name 'admin'
 			$bloguser = get_user_by('login','admin');
-			
+
 			// Check if object exists
 			if ($bloguser){
-			
+
 				// Double-check if object is 'admin'
 				if ($bloguser->user_login === 'admin') {
-				
+
 					// check if administrator
 					if (current_user_can('manage_options')) {
-					
+
 						// Display admin notice
 						echo '<div class="error"><p>';
 						_e('WARNING! An administrator is using the "admin" username, which is highly targetted by <a href="https://99robots.com/wordpress-security-checklist/">brute force bot-net attacks</a>. Please create a new administrator user and delete the "admin" username.', self::$text_domain);
@@ -416,92 +420,92 @@ class Custom_Functions {
 			}
 		}
 	} // handle_admin_notices
-	
+
 	/**
 	 * Checks $settings and hides plugin and theme editors
 	 *
 	 * @since 1.0.0
 	 */
 	static function hide_editors(){
-		
+
 		/* Hide Theme and Plugin Editors */
-		
+
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		if (isset($settings['checkbox-5']) && $settings['checkbox-5'] && is_admin()) {
-		
+
 			remove_submenu_page( 'themes.php', 'theme-editor.php' );
 			remove_submenu_page( 'plugins.php', 'plugin-editor.php' );
-			
+
 		}
 	} // hide_editors
-	
+
 	/**
-	 * Checks $settings and Hide WP Update notice from non-admins 
+	 * Checks $settings and Hide WP Update notice from non-admins
 	 *
 	 * @since 1.0.0
 	 */
 	static function hide_core_update(){
-		
+
 		/* Hide Theme and Plugin Editors */
-		
+
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		if (isset($settings['checkbox-6']) && $settings['checkbox-6'] && is_admin()) {
-		
+
 			/* remove WordPress update message for everyone except Admin users */
-			
-			if(!current_user_can('update_core')) { 
-		
+
+			if(!current_user_can('update_core')) {
+
 				remove_action( 'admin_notices', 'update_nag', 3 );
-			   
+
 			}
 		}
 	} // hide_core_updates
-	
+
 	/**
-	 * Checks $settings and Hide WP admin bar settings from non-admins 
+	 * Checks $settings and Hide WP admin bar settings from non-admins
 	 *
 	 * @since 1.0.0
 	 */
 	static function hide_admin_bar_settings() {
-	
+
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		/* remove WordPress admin bar option from all users except admin  */
 		if (isset($settings['checkbox-22']) && $settings['checkbox-22'] && !current_user_can('administrator')) {?>
-		
+
 			<style type="text/css"> .show-admin-bar { display: none; } </style>
 		<?php }
 	} // hide_admin_bar_settings
-	
+
 	/**
-	 * Checks $settings and Hide WP admin bar from non-admins 
+	 * Checks $settings and Hide WP admin bar from non-admins
 	 *
 	 * @since 1.0.0
 	 */
 	static function disable_admin_bar() {
 
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		if (isset($settings['checkbox-22']) && $settings['checkbox-22'] && !current_user_can('administrator')) {
 
 			/* remove WordPress admin bar from all users except admin */
 			add_filter( 'show_admin_bar', '__return_false' );
 		}
 	} // disable_admin_bar
-	
+
 	/**
 	 * Checks $settings and display image in rss feeds
 	 * @since 1.0.0
 	 */
 	static function featured_image_in_rss($content) {
-		
+
 		// Global $post variable
 		global $post;
-		
+
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		if (isset($settings['checkbox-12']) && $settings['checkbox-12']) {
 
 			// Check if the post has a featured image
@@ -511,48 +515,48 @@ class Custom_Functions {
 		    return $content;
 		}
 	} // featured_image_in_rss
-	
+
 	/**
 	 * Checks $settings and disables self pinging
 	 * @since 1.0.0
 	 */
 	static function disable_self_ping(&$links) {
-		
+
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		if (isset($settings['checkbox-13']) && $settings['checkbox-13']) {
 			error_log('f');
-			
+
 			//remove pings to self
-			
+
 		    $home = get_option( 'home' );
-		    
+
 		    foreach ( $links as $l => $link ) {
-		    
+
 		        if ( 0 === strpos( $link, $home ) ){
-		        
+
 		            unset($links[$l]);
 				}
 			}
 		}
 	} // disable_self_ping
-	
+
 	/**
 	 * Checks $settings and allows contributors to upload images
 	 * @since 1.0.0
 	 */
 	static function allow_contributor_uploads() {
-		
+
 		$settings = get_option(self::$prefix . 'settings');
 		$contributor = get_role('contributor');
 		if (isset($settings['checkbox-20']) && $settings['checkbox-20']) {
-			
+
 			$contributor->add_cap('upload_files');
-			
+
 		} else {
-		
+
 			$contributor->remove_cap('upload_files');
-			
+
 		}
 	} // allow_contributor_uploads
 
@@ -561,62 +565,62 @@ class Custom_Functions {
 	 * @since 1.0.0
 	 */
 	static function posts_for_current_author($query) {
-		
+
 		$settings = get_option(self::$prefix . 'settings');
 		global $pagenow;
-		
+
 		if (isset($settings['checkbox-21']) && $settings['checkbox-21']) {
-		    
+
 		    if(!current_user_can('manage_options')) {
-		    
+
 		       global $user_ID;
 		       $query->set('author', $user_ID );
-		       
+
 		    }
-		    
-		    return $query;			
+
+		    return $query;
 		}
 	} // posts_for_current_author
-	
+
 	/**
 	 * Checks $settings and disables post revisions
 	 * @since 1.0.0
 	 */
 	static function disable_post_revisions($num,$post) {
-		
+
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		if (isset($settings['checkbox-11']) && $settings['checkbox-11']) {
-		
+
 			//set limit to 1 post
-			$num = 1;	
-			
+			$num = 1;
+
 		} else {
-		
+
 			// reset to unlimited saved posts
 			$num = -1;
-			
+
 		}
-		
+
 		return $num;
-		
+
 	} // posts_for_current_author
-	
+
 	/**
 	 * Checks $settings and externalizes links
 	 * @since 1.0.0
 	 */
 	static function externalize_links($content) {
-		
+
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		if (isset($settings['checkbox-14']) && $settings['checkbox-14']) {
-		
+
 			$regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
-			
+
 			$hostname = parse_url(get_home_url());
 			error_log($hostname['host']);
-			
+
 			if(preg_match_all("/$regexp/siU", $content, $matches, PREG_SET_ORDER)) {
 				foreach($matches as $match) {
 					error_log($match[0]);//full link
@@ -625,66 +629,66 @@ class Custom_Functions {
 					error_log($match[3]);//anchor text
 					$parse = parse_url($match[2]);
 					error_log($parse['host']);
-					
-					
-					if (isset($content) && 
-						isset($parse['host']) && 
-						isset($match[2]) && 
-						isset($hostname['host']) && 
+
+
+					if (isset($content) &&
+						isset($parse['host']) &&
+						isset($match[2]) &&
+						isset($hostname['host']) &&
 						($hostname['host'] === $parse['host'])
 						){
-						
+
 						$replace = preg_replace('<a', '<a target="_blank"', $match[0]);
 						error_log($replace);
-						
-					} 
+
+					}
 				}
 			}
-		
+
 		} // externalize_links
-		
+
 		return $content;
 	}
-		
-		
+
+
 	/**
 	 * Checks $settings and adds thumnail column to admin list
 	 * @since 1.0.0
 	 */
-	
+
 	static function add_thumb_column($cols) {
-	
+
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		if (isset($settings['checkbox-10']) && $settings['checkbox-10']) {
-			
+
 	        $cols['thumbnail'] = __('Thumbnail');
-	
-        } 
-        
+
+        }
+
         return $cols;
-        
+
     }
-    
+
     /**
 	 * Checks $settings and adds thumbnails to thumbnail column
 	 * @since 1.0.0
 	 */
-	
+
     static function add_thumb_value($column_name, $post_id) {
 
 		$settings = get_option(self::$prefix . 'settings');
-		
+
 		if (isset($settings['checkbox-10']) && $settings['checkbox-10']) {
-		
+
 			$width = (int) 60;
 			$height = (int) 60;
-			
+
 			if ( 'thumbnail' == $column_name ) {
-			
+
 			    // thumbnail of WP 2.9
 			    $thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
-			    
+
 			    // image from gallery
 			    $attachments = get_children( array('post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
 			    if ($thumbnail_id)

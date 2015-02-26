@@ -8,9 +8,6 @@
 	/* Delete all existence of this plugin */
 
 	global $wpdb;
-	$table_name = 'your_table_name';
-
-	$wpdb->query('DROP TABLE `' . $table_name . '`');
 
 	$blog_option_name = 'your_blog_option_name';
 	$site_option_name = 'your_site_option_name';

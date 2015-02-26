@@ -3,17 +3,6 @@
 	<div class="panel panel-default">
 		<div class="panel-heading"><?php _e('Signup now to get notified of plugin updates, awesome themes, and more. Over 10,000+ already have:', self::$text_domain); ?></div>
 		<div class="panel-body">
-			<!-- Begin MailChimp Signup Form -->
-			<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
-			<style type="text/css">
-				#mc_embed_signup {
-					background:#fff;
-					clear:left;
-					font:14px Helvetica,Arial,sans-serif;
-				}
-				/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
-				We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-			</style>
 			<div>
 			<form action="//wpsite.us5.list-manage.com/subscribe/post?u=82c2341134bbdc37714642adb&amp;id=642b18616e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" role="form" novalidate>
 				<div id="mc_embed_signup_scroll">
@@ -29,11 +18,10 @@
 				</div>
 			</form>
 			</div>
-			<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
 			<!--End mc_embed_signup-->
 		</div>
 	</div>
- 
+
 	<div class="panel panel-default">
 		<div class="panel-heading"><?php _e('Must-Read Articles', self::$text_domain); ?></div>
 		<div class="panel-body">
@@ -42,7 +30,7 @@
 			</div>
 		</div>
 	</div>
- 
+
 	<div class="panel panel-default">
 		<div class="panel-heading"><?php _e('Need Plugin or Theme Development?', self::$text_domain); ?></div>
 		<div class="panel-body">
@@ -51,7 +39,7 @@
 			</div>
 		</div>
 	</div>
- 
+
 	<!--
 <div class="panel panel-default">
 		<div class="panel-heading"><?php _e('Request a Plugin', self::$text_domain); ?></div>
@@ -62,7 +50,7 @@
 		</div>
 	</div>
 -->
- 
+
 	<!--
 <div class="panel panel-default">
 		<div class="panel-heading"><?php _e('Get WordPress Themes', self::$text_domain); ?></div>
@@ -73,7 +61,7 @@
 		</div>
 	</div>
 -->
- 
+
 	<div class="panel panel-default">
 		<div class="panel-heading"><?php _e('Visit Support Forums', self::$text_domain); ?></div>
 		<div class="panel-body">
@@ -82,5 +70,5 @@
 			</div>
 		</div>
 	</div>
- 
+
 </div> <!-- wpsite_plugin_sidebar -->
