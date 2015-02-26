@@ -9,40 +9,19 @@
 
 	global $wpdb;
 
-	$blog_option_name = 'your_blog_option_name';
-	$site_option_name = 'your_site_option_name';
-	$post_meta_data_name = 'your_post_meta_data_name';
-	$user_meta_data_name = 'your_user_meta_data_name';
-
 	if ( !is_multisite() ) {
 
 		/* Delete blog option */
 
-		delete_option($blog_option_name);
-
-		/* Delete post meta data */
-
-		$posts = get_posts(array('posts_per_page' => -1));
-
-		foreach ($posts as $post) {
-			$post_meta = get_post_meta($post->ID);
-			delete_post_meta($post->ID, $post_meta_data_name);
-		}
-
-		/* Delete user meta data */
-
-		$users = get_users();
-
-		foreach ($users as $user) {
-			delete_user_meta($user->ID, $user_meta_data_name);
-		}
+		delete_option('nnr_custom_functions_version');
+		delete_option('nnr_custom_functions_settings');
 	}
 
 	else {
 
 		/* Delete site option */
 
-		delete_site_option($site_option_name);
+		delete_site_option('nnr_custom_functions_version');
 
 		/* Used to delete each option from each blog */
 
@@ -53,24 +32,7 @@
 
 	        /* Delete blog option */
 
-			delete_option($blog_option_name);
-
-			/* Delete post meta data */
-
-			$posts = get_posts(array('posts_per_page' => -1));
-
-			foreach ($posts as $post) {
-				$post_meta = get_post_meta($post->ID);
-				delete_post_meta($post->ID, $post_meta_data_name);
-			}
-
-			/* Delete user meta data */
-
-			$users = get_users();
-
-			foreach ($users as $user) {
-				delete_user_meta($user->ID, $user_meta_data_name);
-			}
+			delete_option('nnr_custom_functions_settings');
 	    }
 
 	    restore_current_blog();

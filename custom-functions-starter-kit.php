@@ -123,7 +123,7 @@ class Custom_Functions {
 	 * @access private
 	 * @static
 	 */
-	public static $text_domain = 'custom-functions';
+	public static $text_domain = 'nnr-custom-functions';
 
 	/**
 	 * prefix
@@ -134,7 +134,7 @@ class Custom_Functions {
 	 * @access private
 	 * @static
 	 */
-	public static $prefix = 'Custom_Functions_';
+	public static $prefix = 'nnr_custom_functions_';
 
 	/**
 	 * prefix_dash
@@ -145,7 +145,7 @@ class Custom_Functions {
 	 * @access public
 	 * @static
 	 */
-	public static $prefix_dash = 'cst-fnc-';
+	public static $prefix_dash = 'nnr-cf-';
 
 	/**
 	 * settings_page
@@ -525,7 +525,6 @@ class Custom_Functions {
 		$settings = get_option(self::$prefix . 'settings');
 
 		if (isset($settings['checkbox-13']) && $settings['checkbox-13']) {
-			error_log('f');
 
 			//remove pings to self
 
@@ -619,16 +618,15 @@ class Custom_Functions {
 			$regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
 
 			$hostname = parse_url(get_home_url());
-			error_log($hostname['host']);
 
 			if(preg_match_all("/$regexp/siU", $content, $matches, PREG_SET_ORDER)) {
 				foreach($matches as $match) {
-					error_log($match[0]);//full link
-					error_log($match[1]);//
-					error_log($match[2]);//anchor href
-					error_log($match[3]);//anchor text
+/* 					error_log($match[0]);//full link */
+/* 					error_log($match[1]);// */
+/* 					error_log($match[2]);//anchor href */
+/* 					error_log($match[3]);//anchor text */
 					$parse = parse_url($match[2]);
-					error_log($parse['host']);
+/* 					error_log($parse['host']); */
 
 
 					if (isset($content) &&
@@ -639,7 +637,7 @@ class Custom_Functions {
 						){
 
 						$replace = preg_replace('<a', '<a target="_blank"', $match[0]);
-						error_log($replace);
+/* 						error_log($replace); */
 
 					}
 				}
