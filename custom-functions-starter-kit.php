@@ -280,15 +280,11 @@ class Custom_Functions {
 
 		wp_register_style(self::$prefix . 'settings_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/css/settings.css');
 		wp_enqueue_style(self::$prefix . 'settings_css');
-		wp_register_style(self::$prefix . 'mailchimp_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/css/mailchimp.css');
-		wp_enqueue_style(self::$prefix . 'settings_css');
 
 		// Javascript
 
 		wp_register_script(self::$prefix . 'settings_js', CUSTOM_FUNCTIONS_PLUGIN_URL . '/js/settings.js');
 		wp_enqueue_script(self::$prefix . 'settings_js');
-		wp_register_script(self::$prefix . 'mailchimp_js', CUSTOM_FUNCTIONS_PLUGIN_URL . '/js/mailchimp.js');
-		wp_enqueue_script(self::$prefix . 'mailchimp_js');
 
 		// BootStrap
 
