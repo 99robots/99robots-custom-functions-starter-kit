@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: 99 Robots Custom Functions Starter Kit
+Plugin Name: Custom Functions Starter Kit
 plugin URI: http://99robots.com/plugins/custom-functions-starter-kit/
-Description:
-version: 1.0
+Description: The Custom Functions Start Kit offers over a dozen easy to use fixes and functions for your WordPress site.
+version: 2.0.0
 Author: 99 Robots
-Author URI: http://99robots.com
+Author URI: https://99robots.com
 License: GPL2
 */
 
@@ -21,17 +21,17 @@ if (!defined('CUSTOM_FUNCTIONS_PLUGIN_NAME'))
 /* Plugin directory */
 
 if (!defined('CUSTOM_FUNCTIONS_PLUGIN_DIR'))
-    define('CUSTOM_FUNCTIONS_PLUGIN_DIR', WP_PLUGIN_DIR . '/' . CUSTOM_FUNCTIONS_PLUGIN_NAME);
+    define('CUSTOM_FUNCTIONS_PLUGIN_DIR', plugin_dir_path(__FILE__) );
 
 /* Plugin url */
 
 if (!defined('CUSTOM_FUNCTIONS_PLUGIN_URL'))
-    define('CUSTOM_FUNCTIONS_PLUGIN_URL', WP_PLUGIN_URL . '/' . CUSTOM_FUNCTIONS_PLUGIN_NAME);
+    define('CUSTOM_FUNCTIONS_PLUGIN_URL', plugins_url() . '/' . CUSTOM_FUNCTIONS_PLUGIN_NAME);
 
 /* Plugin verison */
 
 if (!defined('CUSTOM_FUNCTIONS_VERSION_NUM'))
-    define('CUSTOM_FUNCTIONS_VERSION_NUM', '1.0.0');
+    define('CUSTOM_FUNCTIONS_VERSION_NUM', '2.0.0');
 
 
 /**
@@ -258,12 +258,12 @@ class Custom_Functions {
 	    // Cast the first sub menu to the tools menu
 
 	    $settings_page_load = add_submenu_page(
-	    	'tools.php', 										// parent slug
+	    	'tools.php', 														// parent slug
 	    	__('Custom Functions', self::$text_domain), 						// Page title
 	    	__('Custom Functions', self::$text_domain), 						// Menu name
-	    	'manage_options', 											// Capabilities
-	    	self::$settings_page, 										// slug
-	    	array('Custom_Functions', 'admin_settings')				// Callback function
+	    	'manage_options', 													// Capabilities
+	    	self::$settings_page, 												// slug
+	    	array('Custom_Functions', 'admin_settings')							// Callback function
 	    );
 	    add_action("admin_print_scripts-$settings_page_load", array('Custom_Functions', 'include_admin_scripts'));
 
@@ -278,17 +278,13 @@ class Custom_Functions {
 
 		// CSS
 
-		wp_register_style(self::$prefix . 'settings_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/css/settings.css');
-		wp_enqueue_style(self::$prefix . 'settings_css');
-
-		// Javascript
-
-		wp_register_script(self::$prefix . 'settings_js', CUSTOM_FUNCTIONS_PLUGIN_URL . '/js/settings.js');
-		wp_enqueue_script(self::$prefix . 'settings_js');
+		wp_enqueue_style(self::$prefix . 'settings_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/css/settings.css');
+		wp_enqueue_script(self::$prefix . 'settings_js', CUSTOM_FUNCTIONS_PLUGIN_URL . '/js/settings.js');
+		wp_dequeue_style('forms');
 
 		// BootStrap
 
-		wp_enqueue_style(self::$prefix . 'bootstrap_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/include/bootstrap-3.2.0-dist/css/bootstrap.css');
+		wp_enqueue_style(self::$prefix . 'bootstrap_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/css/nnr-bootstrap.min.css');
 		wp_enqueue_script(self::$prefix . 'bootstrap_js', CUSTOM_FUNCTIONS_PLUGIN_URL . '/include/bootstrap-3.2.0-dist/js/bootstrap.js', array('jquery'));
 	}
 
