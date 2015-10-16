@@ -1,5 +1,5 @@
-=== Custom Functions Starter Kit ===
-Contributors: 99robots
+=== Custom Functions Starter Kit by 99 Robots ===
+Contributors: 99robots, kjbenk, charliepatel, wpmonty
 Donate link:
 Tags: functions, custom, functions.php, code, tricks, easy, recommended, cool
 Requires at least: 4.0
@@ -12,7 +12,7 @@ The Custom Functions Start Kit offers over a dozen easy to use fixes and functio
 
 == Description ==
 
-The Custom Functions Starter kit by http://wpsite.net offers over a dozen easy to use fixes and functions for your WordPress site.
+The Custom Functions Starter kit by https://99robots.com offers over a dozen easy to use fixes and functions for your WordPress site.
 
 = Checkbox Functions =
 Built for ease of use, the plugin features individual functions activated by simple checkboxes on the Tools > Custom Functions page.
@@ -56,14 +56,11 @@ Prevent authors from viewing any content besides their own.
 = Hide Admin Bar from Non-Admins =
 Hide the WP admin bar from all users except administrators.
 
-= Support =
-Have a question or comment about this plugin. Visit the plugin's page at:
-http://www.wpsite.net/custom-functions-starter-kit
-
+Also please check out our other [plugins](https://99robots.com/products/?utm_source=wprepo&utm_medium=content-resharer&utm_campaign=desc) :)
 
 == Installation ==
 
-You can install the Custom Functions Starter Kit plugin from your WordPress Dashboard or manually via FTP. For more details, visit http://www.wpsite.net
+You can install the Custom Functions Starter Kit plugin from your WordPress Dashboard or manually via FTP.
 
 = From WordPress Dashboard =
 
@@ -75,9 +72,9 @@ You can install the Custom Functions Starter Kit plugin from your WordPress Dash
 
 = Manual Installation =
 
-1. Download the plugin file: `wpsite-custom-functions.zip`
+1. Download the plugin file: `custom-functions-starter-kit.zip`
 2. Unzip the file
-3. Upload the`wpsite-follow-us-badges` folder to your `/wp-content/plugins` directory (do not rename the folder)
+3. Upload the`custom-functions-starter-kit.zip` folder to your `/wp-content/plugins` directory (do not rename the folder)
 4. Activate the plugin from Plugins menu.
 5. Configure the plugin's settings  (see instructions for shortcode and php template tags)
 6. Add any widget to your widget zone from 'Appearance -> Widgets' and configure the widget options.
@@ -91,6 +88,10 @@ You can install the Custom Functions Starter Kit plugin from your WordPress Dash
 
 
 == Changelog ==
+
+= 2.0.0 = 2015-10-16
+* IMPROVED: Admin UI
+* UPDATED: Readme file and description
 
 = 1.0 =
 * Initial release
