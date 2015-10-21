@@ -3,7 +3,7 @@
 Plugin Name: Custom Functions Starter Kit
 plugin URI: http://99robots.com/plugins/custom-functions-starter-kit/
 Description: The Custom Functions Start Kit offers over a dozen easy to use fixes and functions for your WordPress site.
-version: 2.0.0
+version: 2.0.1
 Author: 99 Robots
 Author URI: https://99robots.com
 License: GPL2
@@ -31,7 +31,7 @@ if (!defined('CUSTOM_FUNCTIONS_PLUGIN_URL'))
 /* Plugin verison */
 
 if (!defined('CUSTOM_FUNCTIONS_VERSION_NUM'))
-    define('CUSTOM_FUNCTIONS_VERSION_NUM', '2.0.0');
+    define('CUSTOM_FUNCTIONS_VERSION_NUM', '2.0.1');
 
 
 /**
@@ -276,16 +276,20 @@ class Custom_Functions {
 	 */
 	static function include_admin_scripts() {
 
-		// CSS
+
+		// Styles
 
 		wp_enqueue_style(self::$prefix . 'settings_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/css/settings.css');
-		wp_enqueue_script(self::$prefix . 'settings_js', CUSTOM_FUNCTIONS_PLUGIN_URL . '/js/settings.js');
+		wp_enqueue_style(self::$prefix . 'bootstrap_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/css/nnr-bootstrap.min.css');
 		wp_dequeue_style('forms');
 
-		// BootStrap
+		// Scripts
 
-		wp_enqueue_style(self::$prefix . 'bootstrap_css', CUSTOM_FUNCTIONS_PLUGIN_URL . '/css/nnr-bootstrap.min.css');
+		wp_enqueue_script('jquery');
+		wp_enqueue_script(self::$prefix . 'settings_js', CUSTOM_FUNCTIONS_PLUGIN_URL . '/js/settings.js', array('jquery'));
 		wp_enqueue_script(self::$prefix . 'bootstrap_js', CUSTOM_FUNCTIONS_PLUGIN_URL . '/include/bootstrap-3.2.0-dist/js/bootstrap.js', array('jquery'));
+
+
 	}
 
 	/**
