@@ -3,8 +3,8 @@ Contributors: 99robots, kjbenk, charliepatel, wpmonty
 Donate link:
 Tags: functions, custom, functions.php, code, tricks, easy, recommended, cool
 Requires at least: 4.0
-Tested up to: 4.3.1
-Stable tag: 2.0.1
+Tested up to: 4.8.0
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,10 @@ You can install the Custom Functions Starter Kit plugin from your WordPress Dash
 
 
 == Changelog ==
+
+= 2.1.0 = 2017-26-09
+* Updated to make compatible with WordPress 4.8
+* Refactor the whole code according to WordPress coding standards
 
 = 2.0.1 = 2015-10-21
 * FIXED: Script format was not compatible with certain WordPress installs
