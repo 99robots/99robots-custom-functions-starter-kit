@@ -1,10 +1,10 @@
 === Custom Functions Starter Kit by 99 Robots ===
-Contributors: 99robots, kjbenk, charliepatel, wpmonty
+Contributors: 99robots, charliepatel
 Donate link:
 Tags: functions, custom, functions.php, code, tricks, easy, recommended, cool
 Requires at least: 4.0
-Tested up to: 4.8.0
-Stable tag: 2.1.0
+Tested up to: 5.2.3
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,7 +89,11 @@ You can install the Custom Functions Starter Kit plugin from your WordPress Dash
 
 == Changelog ==
 
-= 2.1.0 = 2017-26-09
+= 2.1.1 = 2019-09-05
+* Updated to make compatible with WordPress 5.2.3
+* FIXED: Warnings & Notices
+
+= 2.1.0 = 2017-09-26
 * Updated to make compatible with WordPress 4.8
 * Refactor the whole code according to WordPress coding standards
 
