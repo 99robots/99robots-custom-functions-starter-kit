@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name:		Custom Functions Starter Kit
- * Plugin  URI:		http://99robots.com/plugins/custom-functions-starter-kit/
+ * Plugin  URI:		http://draftpress.com/plugins/custom-functions-starter-kit/
  * Description:		The Custom Functions Start Kit offers over a dozen easy to use fixes and functions for your WordPress site.
- * Version:			2.1.1
+ * Version:			2.1.2
  * Author:			99 Robots
- * Author URI:		https://99robots.com
+ * Author URI:		https://draftpress.com
  * License:			GPL2
  * Text Domain:		'nnr-custom-functions'
  * Domain Path:		/languages
@@ -33,7 +33,7 @@ class Custom_Functions extends Custom_Functions_Base {
 	 * Custom_Functions version.
 	 * @var string
 	 */
-	public $version = '2.1.1';
+	public $version = '2.1.2';
 
 	/**
 	 * The single instance of the class.
@@ -378,7 +378,7 @@ class Custom_Functions extends Custom_Functions_Base {
 
 						// Display admin notice
 						echo '<div class="error"><p>';
-						echo wp_kses_post( __( 'WARNING! An administrator is using the "admin" username, which is highly targetted by <a href="https://99robots.com/wordpress-security-checklist/">brute force bot-net attacks</a>. Please create a new administrator user and delete the "admin" username.', 'nnr-custom-functions' ) );
+						echo wp_kses_post( __( 'WARNING! An administrator is using the "admin" username, which is highly targetted by <a href="https://draftpress.com/wordpress-security-checklist/">brute force bot-net attacks</a>. Please create a new administrator user and delete the "admin" username.', 'nnr-custom-functions' ) );
 						echo '</p></div>';
 					}
 				}
@@ -585,7 +585,7 @@ class Custom_Functions extends Custom_Functions_Base {
 	public function generate_settings( $title = '', $fields ) {
 
 		$settings = $this->get_settings();
-		$codex_page = '&nbsp;-&nbsp;<a href="https://99robots.com/docs/custom-functions-starter-kit/">Learn More</a>';
+		$codex_page = '&nbsp;-&nbsp;<a href="https://draftpress.com/docs/custom-functions-starter-kit/">Learn More</a>';
 		?>
 		<div class="panel panel-default">
 			<div class="panel-heading">

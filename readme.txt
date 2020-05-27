@@ -1,10 +1,10 @@
 === Custom Functions Starter Kit by 99 Robots ===
-Contributors: 99robots, charliepatel
+Contributors: 99robots, charliepatel, draftpress
 Donate link:
 Tags: functions, custom, functions.php, code, tricks, easy, recommended, cool
 Requires at least: 4.0
-Tested up to: 5.2.3
-Stable tag: 2.1.1
+Tested up to: 5.4.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ The Custom Functions Start Kit offers over a dozen easy to use fixes and functio
 
 == Description ==
 
-The Custom Functions Starter kit by https://99robots.com offers over a dozen easy to use fixes and functions for your WordPress site.
+The Custom Functions Starter kit by https://draftpress.com offers over a dozen easy to use fixes and functions for your WordPress site.
 
 = Checkbox Functions =
 Built for ease of use, the plugin features individual functions activated by simple checkboxes on the Tools > Custom Functions page.
@@ -56,7 +56,7 @@ Prevent authors from viewing any content besides their own.
 = Hide Admin Bar from Non-Admins =
 Hide the WP admin bar from all users except administrators.
 
-Also please check out our other [plugins](https://99robots.com/products/?utm_source=wprepo&utm_medium=content-resharer&utm_campaign=desc) :)
+Also please check out our other [plugins](https://draftpress.com/products/?utm_source=wprepo&utm_medium=content-resharer&utm_campaign=desc) :)
 
 == Installation ==
 
@@ -86,6 +86,12 @@ You can install the Custom Functions Starter Kit plugin from your WordPress Dash
 2. Custom Functions Starter Kit General Content Functions
 3. Custom Functions Starter Kit General User Functions
 
+
+== Changelog ==
+
+= 2.1.2 = 2020-27-05
+* Updated to make compatible with WordPress 5.4.1
+* Added: DraftPress as a contributor
 
 == Changelog ==
 

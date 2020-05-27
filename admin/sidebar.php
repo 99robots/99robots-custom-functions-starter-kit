@@ -52,7 +52,7 @@
 			<h3 class="panel-title"><?php _e('Need a Plugin or Theme Developed?', 'nnr-custom-functions' ); ?></h3>
 		</div>
 		<div class="panel-body">
-			<a class="nnr-sidebar-image-link" href="https://99robots.com/contact?utm_medium=sidebar&utm_campaign=plugin-request-banner" target="_blank">
+			<a class="nnr-sidebar-image-link" href="https://draftpress.com/contact?utm_medium=sidebar&utm_campaign=plugin-request-banner" target="_blank">
 				<img class="nnr-sidebar-image" src="<?php echo custom_functions()->plugin_url() . 'img/ad-plugin-request.png'; ?>">
 			</a>
 		</div>
