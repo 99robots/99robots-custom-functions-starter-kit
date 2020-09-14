@@ -2,9 +2,9 @@
 Contributors: 99robots, charliepatel, draftpress
 Donate link:
 Tags: functions, custom, functions.php, code, tricks, easy, recommended, cool
-Requires at least: 4.0
-Tested up to: 5.4.1
-Stable tag: 2.1.2
+Requires at least: 4.5
+Tested up to: 5.5.1
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,7 +87,10 @@ You can install the Custom Functions Starter Kit plugin from your WordPress Dash
 3. Custom Functions Starter Kit General User Functions
 
 
-== Changelog ==
+== Changelog === 
+
+= 2.1.3 = 2020-27-05
+* Updated to make compatible with WordPress 5.5.1
 
 = 2.1.2 = 2020-27-05
 * Updated to make compatible with WordPress 5.4.1
