@@ -3,8 +3,8 @@ Contributors: 99robots, charliepatel, draftpress
 Donate link:
 Tags: functions, custom, functions.php, code, tricks, easy, recommended, cool
 Requires at least: 4.5
-Tested up to: 5.6
-Stable tag: 2.1.4
+Tested up to: 5.7.1
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,10 @@ You can install the Custom Functions Starter Kit plugin from your WordPress Dash
 
 
 == Changelog === 
+
+= 2.1.5 = 2021-29-04
+* FIXED: Hide WordPress Version & Meta Data functionality
+* Updated to make compatible with WordPress 5.7.1
 
 = 2.1.4 = 2020-28-12
 * Updated to make compatible with WordPress 5.6
