@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Plugin Name:        Custom Functions Starter Kit
  * Plugin  URI:        https://draftpress.com/plugins/custom-functions-starter-kit/
  * Description:        The Custom Functions Start Kit offers over a dozen easy to use fixes and functions for your WordPress site.
- * Version:            2.1.6
+ * Version:           2.1.7
  * Author:            DraftPress
  * Author URI:        https://draftpress.com
  * License:            GPL2
@@ -34,7 +35,7 @@ class Custom_Functions extends Custom_Functions_Base
      * Custom_Functions version.
      * @var string
      */
-    public $version = '2.1.6';
+    public $version = '2.1.7';
 
     /**
      * The single instance of the class.
@@ -187,7 +188,6 @@ class Custom_Functions extends Custom_Functions_Base
      */
     private function __construct()
     {
-
     }
 
     /**
@@ -196,7 +196,6 @@ class Custom_Functions extends Custom_Functions_Base
      */
     private function includes()
     {
-
     }
 
     /**
@@ -353,7 +352,6 @@ class Custom_Functions extends Custom_Functions_Base
             }
             add_filter('style_loader_src', 'remove_version_from_style_js');
             add_filter('script_loader_src', 'remove_version_from_style_js');
-
         }
 
         // Hide WordPress Login Errors
@@ -466,11 +464,15 @@ class Custom_Functions extends Custom_Functions_Base
 
         $settings = $this->get_settings();
 
-        if (isset($settings['checkbox-22']) && $settings['checkbox-22'] && !current_user_can('administrator')): ?>
+        if (isset($settings['checkbox-22']) && $settings['checkbox-22'] && !current_user_can('administrator')) : ?>
 
-			<style type="text/css"> .show-admin-bar { display: none; } </style>
-		<?php
-endif;
+            <style type="text/css">
+                .show-admin-bar {
+                    display: none;
+                }
+            </style>
+        <?php
+        endif;
     }
 
     /**
@@ -605,7 +607,6 @@ endif;
 
             // Set limit to 1 post
             $num = 1;
-
         } else {
 
             // Reset to unlimited saved posts
@@ -613,7 +614,6 @@ endif;
         }
 
         return $num;
-
     }
 
     // Options -----------------------------------------------------------
@@ -624,47 +624,47 @@ endif;
         $settings = $this->get_settings();
         $codex_page = '&nbsp;-&nbsp;<a href="https://draftpress.com/docs/custom-functions-starter-kit/">Learn More</a>';
         ?>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title"><?php echo $title ?></h3>
-			</div>
-			<div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $title ?></h3>
+            </div>
+            <div class="panel-body">
 
-				<?php
-foreach ($fields as $field):
-            $fullopid = self::$prefix . 'checkbox-' . $field['id'];
-            $settopid = 'checkbox-' . $field['id'];
-            ?>
-									<div class="form-group">
+                <?php
+                foreach ($fields as $field) :
+                    $fullopid = self::$prefix . 'checkbox-' . $field['id'];
+                    $settopid = 'checkbox-' . $field['id'];
+                ?>
+                    <div class="form-group">
 
-										<div class="pull-left">
-											<input type="checkbox" id="<?php echo $fullopid ?>" name="<?php echo $fullopid ?>" class="form-control"<?php echo isset($settings[$settopid]) && $settings[$settopid] ? ' checked="checked"' : ''; ?>>
-										</div>
+                        <div class="pull-left">
+                            <input type="checkbox" id="<?php echo $fullopid ?>" name="<?php echo $fullopid ?>" class="form-control" <?php echo isset($settings[$settopid]) && $settings[$settopid] ? ' checked="checked"' : ''; ?>>
+                        </div>
 
-										<label for="<?php echo $fullopid ?>" class="col-sm-9 pull-left">
-											<?php
-    echo $field['title'];
+                        <label for="<?php echo $fullopid ?>" class="col-sm-9 pull-left">
+                            <?php
+                            echo $field['title'];
 
-            if (isset($field['is_codex']) && $field['is_codex']) {
-                echo $codex_page;
-            }
-            ?>
-										</label>
+                            if (isset($field['is_codex']) && $field['is_codex']) {
+                                echo $codex_page;
+                            }
+                            ?>
+                        </label>
 
-										<div class="clearfix"></div>
+                        <div class="clearfix"></div>
 
-										<?php if (isset($field['help']) && $field['help']): ?>
-										<em class="help-block">
-											<?php echo wp_kses_post($field['help']) ?>
-										</em>
-										<?php endif;?>
+                        <?php if (isset($field['help']) && $field['help']) : ?>
+                            <em class="help-block">
+                                <?php echo wp_kses_post($field['help']) ?>
+                            </em>
+                        <?php endif; ?>
 
-				</div>
-				<?php endforeach;?>
-			</div>
-		</div>
-		<?php
-}
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+<?php
+    }
 
     public function get_general_settings()
     {
