@@ -4,7 +4,7 @@
  * Plugin Name:        Custom Functions Starter Kit
  * Plugin  URI:        https://draftpress.com/plugins/custom-functions-starter-kit/
  * Description:        The Custom Functions Start Kit offers over a dozen easy to use fixes and functions for your WordPress site.
- * Version:            2.1.7
+ * Version:           2.1.7
  * Author:            DraftPress
  * Author URI:        https://draftpress.com
  * License:            GPL2

@@ -90,7 +90,7 @@ You can install the Custom Functions Starter Kit plugin from your WordPress Dash
 == Changelog === 
 
 = 2.1.7 = 2022-05-08
-* Updated to make compatible with WordPress 6.0.1
+* Updated and Tested to make compatible with WordPress 6.0.1
 
 = 2.1.6 = 2021-15-09
 * Updated to make compatible with WordPress 5.8.1
